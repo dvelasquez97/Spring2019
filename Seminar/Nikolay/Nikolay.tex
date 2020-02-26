@@ -1,0 +1,151 @@
+\documentclass[11pt ,twoside, a4paper]{article}
+
+\begin{document}
+
+\begin{itemize}
+	\item Hazus Flood Model
+	\begin{itemize}
+		\item computing damage of flood 
+	\end{itemize}
+	
+	\item loss estimation process
+	\begin{itemize}
+		\item maps, tables, graphs, \& reports
+		\item economic impacts by intersecting hazard and inventory
+		\item inventory at risk
+		\item flood hazard
+	\end{itemize}
+	
+	\item agriculture
+	\begin{itemize}
+		\item data on crop times and quantities
+		\item top 20 crops for each NRI regions
+		\item does not include livestock
+		\item Hazus-MH removes urban areas, wetlands, forests, etc.
+	\end{itemize}
+	
+	\item vehicles
+	\begin{itemize}
+		\item loss is based on deaths
+	\end{itemize}
+	
+	\item DEM-digital election model
+	\begin{itemize}
+		\item DEM files are simple regularly spaced grid of elevation points
+		\item grid spacing, coordinates, etc.
+		\item commonly builds using remote sensing techniques \& land surveying 
+	\end{itemize}
+	
+	\item National Elevation Dataset (NED)
+	\begin{itemize}
+		\item dataset produced by USGS 
+		\begin{itemize}
+			\item 1 Arc-second resolution for most of US
+		\end{itemize}
+	\end{itemize}
+	
+	\item DEM guidlines
+	\begin{itemize}
+		\item Cell size- higher resolution input -> higher resolution output, but takes longer to process
+	\end{itemize}
+	
+	\item watersheds
+	\begin{itemize}
+		\item area that catches water
+	\end{itemize}
+	
+	\item Riverine req
+	\begin{itemize}
+		\item issue: need to ensure that there's enough train to perform hydraulic analysis
+	\end{itemize}
+	
+	\item Coastal req
+	\begin{itemize}
+		\item issue: need to ensure that there's enough train to perform transect analysis
+		\item convex hull of costal region
+	\end{itemize}
+	
+	\item stream delineation
+	\begin{itemize}
+		\item build a synthetic stream network 
+	\end{itemize}
+	
+	\item Error handling of stream delineation
+	\begin{itemize}
+		\item DEM terrain can predict incorrectly
+		\item to combat this, artificial elevation is placed to match the observed train
+	\end{itemize}
+	
+	\item hydrologic analysis
+	\begin{itemize}
+		\item objective: determine discharge values in streams
+	\end{itemize}
+
+	\item gages
+	\begin{itemize}
+		\item determine water level and discharge of water
+	\end{itemize}
+	
+	\item regression
+	\begin{itemize}
+		\item inputs:
+		\item topographic
+		\begin{itemize}
+			\item drainage area
+			\item mean basin elevation + slope
+			\item basin length
+			\item channel length
+		\end{itemize}
+		\item other parameters
+		\begin{itemize}
+			\item temperature
+			\item precipitation
+			\item soil type
+			\item forest cover
+			\item snowfall
+		\end{itemize}
+	\end{itemize}
+	
+	\item Depth-Damage Functions
+	\begin{itemize}
+		\item determine the amount of damage that could result given the type of structure, etc. that results with depth of flood
+	\end{itemize}
+	
+	\item loss estimation 
+	\begin{itemize}
+		\item loss is weighted by the elevation of the building during the flood
+	\end{itemize}
+	
+	\item Hazus flood casualties
+	\begin{itemize}
+		\item Hazus flood model does not generate casualty estimates
+		\item Hazus Tsunami model does generates casualty estimates
+	\end{itemize}
+	
+	\item Average Annualized Loss (AAL)
+	\begin{itemize}
+		\item estimated direct economic losses averaged on an annual basis using future direct economic losses
+		\item used to determine the financial feasibility o mitigation projects
+	\end{itemize}
+	
+	\item storm surge
+	\begin{itemize}
+		\item flooding as a result of a storm (mostly hurricanes)
+	\end{itemize}
+
+	\item 
+	\begin{itemize}
+		\item 
+	\end{itemize}
+
+
+\end{itemize}
+
+\end{document}
+
+
+
+
+
+
+

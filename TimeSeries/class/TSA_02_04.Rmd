@@ -1,0 +1,51 @@
+---
+title: "TSA_02_04"
+author: "Dante Velasquez"
+date: "2/4/2020"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library("TSA")
+```
+
+Load Time Series Data For Rainfall In LA
+```{r}
+data(larain)
+larain
+```
+
+```{r}
+plot(larain)
+```
+
+```{r}
+plot(x = larain, y = zlag(larain))
+```
+
+```{r}
+plot(x = as.vector(larain), y = as.vector(zlag(larain)))
+abline(lm(as.vector(zlag(larain)) ~ as.vector(larain)))
+```
+
+Load Hare Data
+```{r}
+data(hare)
+hare
+```
+
+```{r}
+plot(hare)
+```
+
+```{r}
+k <- 1
+plot(x = as.vector(hare), y = as.vector(zlag(hare, k)))
+#abline(lm(as.vector(zlag(hare, k)) ~ as.vector(hare)))
+```
+
+
