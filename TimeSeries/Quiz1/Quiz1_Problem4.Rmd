@@ -1,0 +1,69 @@
+---
+title: "Quiz1_Problem4"
+author: "Dante Velasquez"
+date: "3/15/2020"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Load Packages
+```{r}
+library(quantmod)
+library(forecast)
+library(tidyverse)
+```
+
+## Part A
+```{r}
+getSymbols("TSLA", src = "yahoo", from = "2014-01-01")
+getSymbols("ILMN", src = "yahoo", from = "2014-01-01")
+```
+
+## Part B
+```{r}
+par(mfrow = c(1, 2))
+plot(TSLA)
+plot(ILMN)
+```
+
+## Part C
+```{r}
+getArimaModel <- function(ts_var) {
+  xts_object <- auto.arima(ts_var) 
+  p <- length(xts_object$model$phi)
+  d <- length(xts_object$model$Delta)
+  q <- length(xts_object$model$theta)
+
+  return(paste(p, d, q, sep = "-"))
+}
+
+ilmnSplit <- split(ILMN[, 4], f = "months", k = 4) #Uses only closing values
+ilmnModels <- lapply(ilmnSplit, getArimaModel)
+table(unlist(ilmnModels))
+
+tslaSplit <- split(TSLA[, 4], f = "months", k = 4) #Uses only closing values
+tslaModels <- lapply(tslaSplit, getArimaModel)
+table(unlist(tslaModels))
+```
+
+## Part D
+```{r}
+par(mfrow = c(1, 2))
+
+# ILMN
+ILMN <- ilmnSplit[[length(ilmnSplit)]]
+arima(ILMN, order = c(0, 1, 0)) %>% forecast(h = 12) %>% plot
+
+# TSLA
+TSLA <- tslaSplit[[length(tslaSplit)]]
+arima(TSLA, order = c(0, 1, 0)) %>% forecast(h = 12) %>% plot
+```
+
+
+##
+```{r}
+
+```
