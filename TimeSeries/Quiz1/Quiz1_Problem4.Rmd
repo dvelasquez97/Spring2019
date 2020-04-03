@@ -18,8 +18,8 @@ library(tidyverse)
 
 ## Part A
 ```{r}
-getSymbols("TSLA", src = "yahoo", from = "2014-01-01")
-getSymbols("ILMN", src = "yahoo", from = "2014-01-01")
+getSymbols("TSLA", src = "yahoo")
+getSymbols("ILMN", src = "yahoo")
 ```
 
 ## Part B
@@ -40,11 +40,11 @@ getArimaModel <- function(ts_var) {
   return(paste(p, d, q, sep = "-"))
 }
 
-ilmnSplit <- split(ILMN[, 4], f = "months", k = 4) #Uses only closing values
+ilmnSplit <- split(ILMN[, 4], f = "months", k = 2) #Uses only closing values
 ilmnModels <- lapply(ilmnSplit, getArimaModel)
 table(unlist(ilmnModels))
 
-tslaSplit <- split(TSLA[, 4], f = "months", k = 4) #Uses only closing values
+tslaSplit <- split(TSLA[, 4], f = "months", k = 2) #Uses only closing values
 tslaModels <- lapply(tslaSplit, getArimaModel)
 table(unlist(tslaModels))
 ```
@@ -55,13 +55,12 @@ par(mfrow = c(1, 2))
 
 # ILMN
 ILMN <- ilmnSplit[[length(ilmnSplit)]]
-arima(ILMN, order = c(0, 1, 0)) %>% forecast(h = 12) %>% plot
+arima(ILMN, order = c(0, 1, 0)) %>% forecast(h = 20) %>% plot
 
 # TSLA
 TSLA <- tslaSplit[[length(tslaSplit)]]
-arima(TSLA, order = c(0, 1, 0)) %>% forecast(h = 12) %>% plot
+arima(TSLA, order = c(0, 1, 0)) %>% forecast(h = 20) %>% plot
 ```
-
 
 ##
 ```{r}

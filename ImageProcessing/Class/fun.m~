@@ -1,0 +1,23 @@
+clear
+clc
+
+%% Read Image
+I = imread('../PlayImages/spiral.jpg');
+I = double(rgb2gray(I));
+
+%% 1st derivatives
+[Ix, Iy] = imgradientxy(I);
+
+%% 2nd derivatives
+[Ixx, Ixy] = imgradientxy(Ix);
+[Ixy, Iyy] = imgradientxy(Iy);
+
+%% Curl of Curl
+C = Ixy;
+imshow(C, [])
+
+%% Orthogonal Curl of 
+C = Iyy.^2 + Ixy.^2 + Ixx.^2;
+imshow(C, [])
+
+%% 

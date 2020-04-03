@@ -1,39 +1,30 @@
 clear
 clc
 
-%% Read Image
-I = imread('./Moon.jpg');
+%% Exercise 1: On Paper
 
 %% Exercise 2
-mask = [1, 1, 1; 1, -8, 1; 1, 1, 1];
-Ilap = imfilter(I, mask);
-Ifilt = I - Ilap;
+moon = imread('./Moon.jpg');
+lap = ones(3, 3);
+lap(2, 2) = -8;
+
+g = moon - imfilter(moon, lap);
 
 figure;
 subplot(1, 2, 1)
-imshow(I, [])
-title('Original')
+imshow(moon, [])
 
 subplot(1, 2, 2)
-imshow(Ifilt, [])
-title('Enhanced')
+imshow(g, [])
 
 %% Exercise 3
-mnist = rgb2gray(imread('./mnist.png'));
-mnist = imbinarize(mnist, graythresh(mnist));
+spiral = imread('./spiral.jpg');
+spiralGray = rgb2gray(spiral);
+spiralBW = imbinarize(spiralGray, graythresh(spiralGray));
 
 figure;
 subplot(1, 2, 1)
-imshow(mnist, [])
-title('Original')
+imshow(spiralBW, [])
 
 subplot(1, 2, 2)
-imshow(mnist - imerode(mnist, strel('Disk', 5)), [])
-title('Contour (5x5)')
-
-
-
-
-
-
-
+imshow(spiralBW - imerode(spiralBW, strel('disk', 2)), [])
