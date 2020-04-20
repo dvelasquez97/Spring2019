@@ -1,0 +1,67 @@
+---
+title: "class_04_09_2020"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Get Libraries
+```{r}
+library(TSA)
+```
+
+## Get Moving Average Data
+```{r}
+data("ma1.1.s")
+plot(ma1.1.s)
+```
+
+## Plot Autocorrelation Function
+```{r}
+acf(ma1.1.s)
+```
+
+### Get Autoregressive Data
+```{r}
+data("ar1.s")
+plot(ar1.s)
+```
+
+### Plot Autocorrelation Function
+```{r}
+acf(ar1.s)
+```
+
+
+### Plot PARTIAL Autocorrelation Function
+```{r}
+pacf(ar1.s)
+```
+
+
+### Get ARMA data
+```{r}
+data("arma11.s")
+plot(arma11.s)
+```
+
+### Plot Autocorrelation Function
+```{r}
+acf(arma11.s)
+```
+
+
+### Plot PARTIAL Autocorrelation Function
+```{r}
+pacf(arma11.s)
+```
+
+### Plot EXTENDED Autocorrelation Function
+```{r}
+eacf(arma11.s)
+```
+
+
+In the extended autocorrelation function, Xs are not good for choice of model and Os are good choices for models. Choosing the simplest of the models leads one to choose ARMA(1, 1) as the fitted model.

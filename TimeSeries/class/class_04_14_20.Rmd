@@ -1,0 +1,42 @@
+---
+title: "class_04_14_20"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Load Packages
+
+```{r}
+library(TSA)
+library(tseries)
+```
+
+## Load oil price data
+```{r}
+data("oil.price")
+```
+
+
+## Use Augmented Dickey-Fuller Unit-Root Test on random normal data
+```{r}
+x <- rnorm(1000)
+adf.test(x)
+```
+
+## Use Augmented Dickey-Fuller Unit-Root Test on random normal data
+```{r}
+ts.sim <- arima.sim(list(order = c(1, 1, 0), ar = 0.7), n = 200)
+adf.test(ts.sim)
+plot(ts.sim)
+```
+
+
+
+
+
+
+
+
