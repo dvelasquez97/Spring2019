@@ -1,0 +1,41 @@
+---
+title: "class_04_16_20"
+author: "Dante Velasquez"
+date: "4/16/2020"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Load Libraries
+```{r}
+library("TTR")
+```
+
+## 
+
+```{r}
+#kings <- ts(scan("http://robjhyndman.com/tsdldata/data/kings.dat"))
+births <- ts(scan("http://robjhyndman.com/tsdldata/data/nybirths.dat"), frequency = 12)
+souvenir <- ts(scan("http://robjhyndman.com/tsdldata/data/fancy.dat"), frequency = 12)
+rain <- ts(scan("http://robjhyndman.com/tsdldata/hurst/precip1.dat", skip = 1), frequency = 1, start = c(1813))
+```
+
+# Decompose into Parts
+```{r}
+plot(decompose(births))
+```
+
+# Plot 'Rain' 
+```{r}
+plot(rain)
+```
+
+# Holt Winters
+```{r}
+rainForecast <- HoltWinters(rain, beta = TRUE, gamma = FALSE)
+# rainForecast$fitted # predicted values
+plot(rainForecast)
+```

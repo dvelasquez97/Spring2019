@@ -40,18 +40,14 @@ Prasanna et al [1] found that radiologists can tell the difference approximatly 
 Almost a coin flip.
 
 
-Solving Hard Medical Problems: Enter Computers (Signals)
+Solving Hard Medical Imaging Problems: Enter Computers
 ========================================================
-
-- Signals
 
 ![ecg](ecg.jpg)
 
 
-Solving Hard Medical Problems: Enter Computers (Images)
+Solving Hard Medical Imaging Problems: Enter Computers
 ========================================================
-
-- Images 
 
 ![mri](mri.jpg) 
 ![Colorectal cancer histology slide (400x400)](baby2.jpg)
@@ -64,9 +60,9 @@ No. There are multiple subfields of Computer Aided Diagnosis (CAD).
 
 The focus of today 
 
-- Radiomics (smaller part)
+- Radiomics
   - MRI, Xray, CT
-- Histomics (larger part)
+- Histomics 
   - Biopsy slides
 
 
