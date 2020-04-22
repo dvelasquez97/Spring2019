@@ -1,0 +1,145 @@
+---
+title: "TSA_04_21_20"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## Load Libraries
+```{r}
+library("TTR")
+library("forecast")
+```
+
+## Load Data
+```{r}
+#kings <- ts(scan("http://robjhyndman.com/tsdldata/data/kings.dat"))
+births <- ts(scan("http://robjhyndman.com/tsdldata/data/nybirths.dat"), frequency = 12)
+souvenir <- ts(scan("http://robjhyndman.com/tsdldata/data/fancy.dat"), frequency = 12)
+rain <- ts(scan("http://robjhyndman.com/tsdldata/hurst/precip1.dat", skip = 1), frequency = 1, start = c(1813))
+```
+
+# Decompose into Parts
+```{r}
+plot(decompose(births))
+```
+
+# Plot 'Rain' 
+```{r}
+plot(rain)
+```
+
+# Holt Winters
+```{r}
+rainForecast <- HoltWinters(rain, beta = FALSE, gamma = FALSE)
+# rainForecast$fitted # predicted values
+plot(rainForecast)
+```
+
+
+```{r}
+names(rainForecast)
+
+```
+
+```{r}
+rainForecast$SSE
+```
+
+
+```{r}
+forecast(rainForecast, h = 15)
+```
+
+
+```{r}
+plot(forecast(rainForecast, h = 15))
+```
+
+
+```{r}
+skirts <- scan("http://robjhyndman.com/tsdldata/roberts/skirts.dat",skip=5)
+skirtsseries <- ts(skirts,start=c(1866))
+```
+
+
+```{r}
+plot(skirtsseries)
+```
+
+
+```{r}
+skirtsseriesforecasts <- HoltWinters(skirtsseries, gamma = FALSE)
+skirtsseriesforecasts
+```
+
+alpha and beta are close to 1, indicating that the holt winter model favors recent numbers
+
+```{r}
+plot(skirtsseriesforecasts)
+```
+
+```{r}
+plot(forecast(skirtsseriesforecasts, h = 15))
+```
+
+Fast expansion of confidence intervals when forecasting is an indication of non-stationarity
+
+```{r}
+rain2 <- forecast(rainForecast, h = 15)
+acf(rain2$residuals[-1], lag.max = 20)
+```
+
+None of the residuals are correlated with eachother, so the residuals are independent, which is what we want.
+
+```{r}
+skirt2 <- forecast(skirtsseriesforecasts, h = 15)
+acf(skirt2$residuals[c(-1, -2)], lag.max = 20)
+```
+
+
+```{r}
+souvenir <- scan("http://robjhyndman.com/tsdldata/data/fancy.dat")
+souvenirtimeseries <- ts(souvenir, frequency=12, start=c(1987,1))
+
+transformedsouvenir <- log(souvenirtimeseries)
+
+plot(transformedsouvenir)
+
+souvenirtimeseriesforecasts <- HoltWinters(transformedsouvenir)
+plot(souvenirtimeseriesforecasts)
+```
+
+```{r}
+plot(forecast(souvenirtimeseriesforecasts, h = 60))
+```
+
+
+
+```{r}
+s <- forecast(souvenirtimeseriesforecasts, h = 60)
+acf(s$residuals[-seq(1, 12, by = 1)], lag.max = 20)
+```
+
+```{r}
+qqnorm(s$residuals[-c(1:12)])
+```
+
+
+```{r}
+library(goftest)
+cvm.test(s$residuals[-c(1:12)], "pnorm")
+
+ad.test(s$residuals[-c(1:12)], "pnorm")
+
+hist(s$residuals[-c(1:12)])
+```
+
+```{r}
+
+```
+
+
