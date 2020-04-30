@@ -1,0 +1,105 @@
+---
+title: "Quiz2"
+author: "Dante Velasquez"
+date: "4/26/2020"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Load Libraries
+```{r}
+library(TSA)
+library(forecast)
+library(quantmod)
+library(tidyverse)
+```
+
+## Problem 2
+```{r}
+set.seed(1224)
+
+phi <- c(0.6, -0.3)
+theta <- c(-0.7, -0.1)
+stde <- 10
+mu <- 100
+N <- 200
+
+white_noise <- rnorm(n = N, mean = mu, sd = stde)
+
+arima_100 <- arima.sim(n = N, model = list(order = c(1, 0, 0), ar = phi[1]), sd = stde) + mu
+arima_010 <- arima.sim(n = N, model = list(order = c(0, 1, 0)), sd = stde) + mu
+arima_001 <- arima.sim(n = N, model = list(order = c(0, 0, 1), ma = theta[1]), sd = stde) + mu
+
+arima_200 <- arima.sim(n = N, model = list(order = c(2, 0, 0), ar = phi), sd = stde) + mu
+arima_002 <- arima.sim(n = N, model = list(order = c(0, 0, 2), ma = theta), sd = stde) + mu
+arima_212 <- arima.sim(n = N, model = list(order = c(2, 1, 2), ar = phi, ma = theta), sd = stde) + mu
+
+arima_211 <- arima.sim(n = N, model = list(order = c(2, 1, 1), ar = phi, ma = theta[1]), sd = stde) + mu
+arima_112 <- arima.sim(n = N, model = list(order = c(1, 1, 2), ar = phi[1], ma = theta), sd = stde) + mu
+arima_131 <- arima.sim(n = N, model = list(order = c(1, 3, 1), ar = phi[1], ma = theta[1]), sd = stde) + mu
+
+```
+
+## Problem 3
+```{r}
+getSymbols("FB", src = "yahoo")
+getSymbols("AAPL", src = "yahoo")
+getSymbols("INTC", src = "yahoo")
+getSymbols("IBM", src = "yahoo")
+getSymbols("NVDA", src = "yahoo")
+getSymbols("SIRI", src = "yahoo")
+getSymbols("SPOT", src = "yahoo")
+getSymbols("GOOGL", src = "yahoo")
+getSymbols("AMZN", src = "yahoo")
+getSymbols("WFC", src = "yahoo")
+stocks <- list(AAPL, AMZN, FB, GOOGL, IBM, INTC, NVDA, SIRI, SPOT, WFC)
+
+N_points <- 200
+window_size <- 99
+closing <- lapply(stocks, function(s) {
+  l <- dim(s)[1]
+  return(s[(l - N_points + 1):l, 4])
+})
+
+percent_success <- lapply(1:10, function(i) {
+  d <- closing[[i]]
+  
+  # Create Holt Winter for every 99 point window
+  stock_closing_forecasts <- rollapply(d, window_size, function(w) {
+    
+    # Create Holt-Winter Model
+    hw <- HoltWinters(w, beta = TRUE, gamma = FALSE)
+    
+    # Forecast
+    forecasted_value <- forecast(hw, h = 1)$mean
+    
+    return(forecasted_value)
+  })
+  
+  NonNAindex <- which(!is.na(stock_closing_forecasts))
+  j <- min(NonNAindex) + 1
+  n <- length(stock_closing_forecasts)
+
+  # Keep only NonNA values to assess accuracy
+  stock_closing_forecasts <- stock_closing_forecasts[j:n]
+  d <- d[j:n]
+  m <- length(d)
+  
+  pred_direction <- sign(diff(stock_closing_forecasts))[-1]
+  actual_direction <- sign(diff(d))[-1]
+  
+  
+  n_success <- sum(pred_direction == actual_direction)
+  return(n_success / m)
+})
+
+print(percent_success)
+```
+
+
+```{r}
+
+```

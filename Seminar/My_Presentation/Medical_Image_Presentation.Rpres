@@ -3,6 +3,7 @@ Medical Imaging
 author: Dante Velasquez
 date: April 21, 2020
 autosize: true
+font-family: 'Helvetica'
 
 What You'll Get From This Presentation
 ========================================================
@@ -35,7 +36,7 @@ Motivating Example: Glioblastoma
 
 The problem? 
 
-Prasanna et al [1] found that radiologists can tell the difference approximatly 60% of the time. 
+Prasanna et al [1] found that radiologists can tell the difference approximately 60% of the time. 
 
 Almost a coin flip.
 
@@ -66,7 +67,7 @@ The focus of today
   - Biopsy slides
 
 
-Some Image Procesing Terminology
+Some Image Processing Terminology
 ========================================================
 
 Images are 2D extensions of 1D signals. 
